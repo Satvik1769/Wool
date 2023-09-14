@@ -70,4 +70,3 @@ router.route("/login").post( async(req,res)=>{
 router.route("/events").get(verifyUserToken);
 
   
-module.exports = router;
