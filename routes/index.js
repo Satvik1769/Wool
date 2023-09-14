@@ -1,9 +1,11 @@
 const router = require('express').Router();
 const User = require("../models/user.model")
-const userController = require('../controllers/user/userController');
 const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+const config = require("../config")
+const { verifyUserToken } = require("../middleware/auth")
 
-// Register a new User
+
 router.route("/getUser").get((req,res)=>{
     User.find()
     .then(users =>{ 
@@ -13,6 +15,7 @@ router.route("/getUser").get((req,res)=>{
     .catch((e) => res.status(400).json('Error ' + e));
 
 })
+
 
 router.route("/signup").post(async(req,res)=>{
     const salt = await bcrypt.genSalt(10);
@@ -26,10 +29,45 @@ router.route("/signup").post(async(req,res)=>{
         password : password
     });
 
-    newUser.save().then(()=>res.json("User Added")).catch((e)=>res.status(400).json('Error ' + e))
+    newUser.save().then((registeredUser)=>{
+        let payload = { id: registeredUser._id, user_type_id: req.body.user_type_id || 0 };
+            const token = jwt.sign(payload, config.JWT_SECRET);
+            res.status(200).send({ token })
+    }).catch((e)=>res.status(400).json('Error ' + e))
 });
 
-// // Login
-// router.post('/login', userController.login);
 
+router.route("/login").post( async(req,res)=>{
+    console.log(req.body)
+    User.findOne({email : req.body.email})
+    .then(async(user)=>{
+  
+            if (user) {
+                const validPass = await bcrypt.compare(req.body.password, user.password);
+               
+                if (!validPass) return res.status(401).send("Mobile/Email or Password is wrong");
+
+                // Create and assign token
+                let payload = { id: user._id, user_type_id: user.user_type_id };
+                const token = jwt.sign(payload, config.JWT_SECRET);
+
+                res.status(200).header("auth-token", token).send({ "token": token });
+            }
+            else {
+                res.status(401).send('Invalid mobile')
+            }
+
+        
+    })
+    .catch((e)=>{
+        console.log(e)
+        res.send(e);
+    })
+
+})
+
+ 
+router.route("/events").get(verifyUserToken);
+
+  
 module.exports = router;
