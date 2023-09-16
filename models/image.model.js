@@ -1,16 +1,28 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-var conn = mongoose.Collection;
+
 
 const imageSchema = new Schema({
-    name : {
+    userName : {
         type: String,
-        requied: true
+        unique : true,
+        required : true
     },
-    desc : String,
+    postTitle:{
+        type:String ,
+        required: false,
+        },
+    like:{
+        type : Number,
+        default : 0,
+        },
     img : {
         data: Buffer,
         contentType: String
+    },
+    mint : {
+        type:Boolean,
+        default:false
     }
 })
 

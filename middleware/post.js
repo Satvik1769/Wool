@@ -2,9 +2,10 @@ const Image = require("../models/image.model")
 module.exports = {
     postImage  :  (req,res,next)=>{
         var obj = {
-            name: req.body.name,
-            desc: req.body.desc,
-            img: req.body.photo
+            userName: req.body.userName,
+            postTitle: req.body.postTitle,
+            img: req.body.photo,
+            mint : req.body.mint
         }
         console.log(obj);
         const newImage = new Image(obj);

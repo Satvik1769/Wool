@@ -69,4 +69,16 @@ router.route("/login").post( async(req,res)=>{
  
 router.route("/events").get(verifyUserToken);
 
+router.route("/getData").get((req,res)=>{
+    id = req.body.id;
+    User.findById(id)
+    .then(data =>{
+        console.log(data,"data");
+        res.json(data);
+    })
+    .catch((err)=>{
+        res.status(400).json("Error : " + err);
+    })
+})
+module.exports = router
   

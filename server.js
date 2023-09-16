@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 
 
 
-mongoose.connect("mongodb://0.0.0.0:27017/").then(()=>{
+mongoose.connect("mongodb+srv://Satvik1769:IRONMAN@instadapp.zr8a5jl.mongodb.net/").then(()=>{
     console.log('Connected to database');
 }).catch((e)=>{
     console.error(`Error connecting to the db ${e}`);
