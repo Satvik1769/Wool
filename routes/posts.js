@@ -9,6 +9,20 @@ const config = require("../config");
 const { exec } = require('child_process');
 //import theblockchainapi from "theblockchainapi";
 
+function commitFileToGit(filename, res) {
+  const commitMessage = `Add image ${filename}`;
+
+  // Run Git commands to add and commit the file
+  exec(`git add ${filename} && git commit -m "${commitMessage}"`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Git commit failed' });
+    }
+    console.log('File added and committed to Git repository');
+    res.status(200).json({ message: 'Success' });
+  });
+}
+
 
 async function getSecretPhrase(){
   const url ="https://api.blockchainapi.com/v1/solana/wallet/generate/secret_recovery_phrase";
@@ -133,7 +147,7 @@ var upload = multer({storage : storage}).single('image')
             return res.status(500).json({error : 'File upload failed'})
         }
         else{
-          console.log(req.file.filename)
+          
             const newImage = new Image({
                 userName : req.body.userName,
                 postTitle : req.body.postTitle,
@@ -147,16 +161,6 @@ var upload = multer({storage : storage}).single('image')
                 
 
             })
-            console.log(path.join(__dirname, '../uploads/'+req.file.filename));
-            commitMessage = `Add image ${req.file.filename};`
-            exec(`git add ${req.file.filename} && git commit -m "${commitMessage}"`, (error, stdout, stderr) => {
-              if (error) {
-                console.error(error);
-                return res.status(500).json({ error: 'Git commit failed' });
-              }
-              console.log('File added and committed to Git repository');
-              res.status(200).json({ message: 'Success' });
-            });
             newImage.save()
             .then(()=>{
            
@@ -167,6 +171,7 @@ var upload = multer({storage : storage}).single('image')
                 console.log(err);
                 res.status(500).json({error : 'Server Error '})
             })
+            commitFileToGit(req.file.filename,res);
         }
     })
  });
