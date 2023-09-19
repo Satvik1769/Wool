@@ -24,5 +24,5 @@ const postRoute = require('./routes/posts');
 app.use('/auth', authRoute);
 app.use('/posts',postRoute);
 
-const port = 3001;
+const port = process.env.port ||  3001;
 app.listen(port, function(){console.log("Server running on localhost:" + port)});

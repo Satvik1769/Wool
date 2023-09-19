@@ -112,9 +112,7 @@ var upload = multer({storage : storage}).single('image')
             
           };
         });
-        //console.log(imagesWithBase64)
-       //  res.json(imagesWithBase64);
-       // res.render("images",{items : images})
+
        console.log(imagesWithBase64)
       
 
@@ -257,7 +255,8 @@ router.route("/Posts/:postId/comments").post( async (req, res) => {
        
         const userName = post.userName;
         const image = post.img.name;
-        imageUrl = `http://localhost:3001/uploads/${image}`;
+        // imageUrl = `http://localhost:3001/uploads/${image}`;
+        imageUrl = `https://nft-marketplace-api.onrender.com/${image}`
         //imageUrl = "https://static1.thegamerimages.com/wordpress/wp-content/uploads/2021/04/spider-man-tobey-maguire.jpg"
 
 
