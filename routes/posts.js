@@ -171,7 +171,7 @@ var upload = multer({storage : storage}).single('image')
                 console.log(err);
                // res.status(500).json({error : 'Server Error '})
             })
-            commitFileToGit(req.file.filename,res);
+            .then(commitFileToGit(req.file.filename,res));
         }
     })
  });
