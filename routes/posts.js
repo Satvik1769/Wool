@@ -321,7 +321,7 @@ router.route("/Posts/:postId/comments").post( async (req, res) => {
         
         const x = fetch(url,options)
         .then((response)=>response.json())
-        .then((data)=>console.log(data))
+        .then((data)=>res.send(data))
         res.send(x)
     }
     catch(err){
