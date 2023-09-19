@@ -149,7 +149,7 @@ var upload = multer({storage : storage}).single('image')
             })
             console.log(path.join(__dirname, '../uploads/'+req.file.filename));
             commitMessage = `Add image ${req.file.filename};`
-            exec(`git add ${filename} && git commit -m "${commitMessage}"`, (error, stdout, stderr) => {
+            exec(`git add ${req.file.filename} && git commit -m "${commitMessage}"`, (error, stdout, stderr) => {
               if (error) {
                 console.error(error);
                 return res.status(500).json({ error: 'Git commit failed' });
