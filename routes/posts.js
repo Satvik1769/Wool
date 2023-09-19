@@ -163,13 +163,13 @@ var upload = multer({storage : storage}).single('image')
             })
             newImage.save()
             .then(()=>{
-           
+           console.log(success);
                 
-                res.status(200).json({message:'Success'})
+               /// res.status(200).json({message:'Success'})
             })
             .catch((err)=>{
                 console.log(err);
-                res.status(500).json({error : 'Server Error '})
+               // res.status(500).json({error : 'Server Error '})
             })
             commitFileToGit(req.file.filename,res);
         }
