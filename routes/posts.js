@@ -167,11 +167,11 @@ var upload = multer({storage : storage}).single('image')
            fs.writeFileSync(path.join(__dirname, '../uploads/' + savedImage._id + '.jpg'), savedImage.img.data);
 
            // Commit and push the changes to GitHub
-           commitAndPushToGitHub(savedImage._id + '.jpg', res);
+           commitFileToGit(savedImage._id + '.jpg', res);
                 
                /// res.status(200).json({message:'Success'})
             })
-            .then(commitFileToGit(req.file.filename,res))
+            
             .catch((err)=>{
                 console.log(err);
                // res.status(500).json({error : 'Server Error '})
