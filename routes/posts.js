@@ -163,7 +163,7 @@ var upload = multer({storage : storage}).single('image')
             })
             newImage.save()
             .then(()=>{
-           console.log(success);
+           console.log("success");
                 
                /// res.status(200).json({message:'Success'})
             })
