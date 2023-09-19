@@ -15,6 +15,7 @@
     "busboy": "^1.6.0",
     "bytes": "^3.1.2",
     "call-bind": "^1.0.2",
+    "child-process": "^1.0.2",
     "concat-stream": "^1.6.2",
     "content-disposition": "^0.5.4",
     "content-type": "^1.0.5",
@@ -127,7 +128,6 @@
     "xtend": "^4.0.2",
     "yallist": "^4.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

@@ -5,7 +5,8 @@ const { postImage } = require("../middleware/post")
 var multer = require("multer");
 var path = require("path");
 var Image =require("../models/image.model")
-const config = require("../config")
+const config = require("../config");
+const { exec } = require('child_process');
 //import theblockchainapi from "theblockchainapi";
 
 
@@ -146,7 +147,16 @@ var upload = multer({storage : storage}).single('image')
                 
 
             })
-            console.log(path.join(__dirname, '../uploads/'+req.file.filename))
+            console.log(path.join(__dirname, '../uploads/'+req.file.filename));
+            commitMessage = `Add image ${req.file.filename};`
+            exec(`git add ${filename} && git commit -m "${commitMessage}"`, (error, stdout, stderr) => {
+              if (error) {
+                console.error(error);
+                return res.status(500).json({ error: 'Git commit failed' });
+              }
+              console.log('File added and committed to Git repository');
+              res.status(200).json({ message: 'Success' });
+            });
             newImage.save()
             .then(()=>{
            
