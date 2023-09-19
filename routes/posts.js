@@ -146,6 +146,7 @@ var upload = multer({storage : storage}).single('image')
                 
 
             })
+            console.log(path.join(__dirname, '../uploads/'+req.file.filename))
             newImage.save()
             .then(()=>{
            
