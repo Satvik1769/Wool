@@ -165,7 +165,7 @@ var upload = multer({storage : storage}).single('image')
             newImage.save()
             .then((savedImage)=>{
            console.log("success");
-           console.log(process.version)
+
            const base64Image = Buffer.from(savedImage.img.data).toString("base64");
            return fetch(`https://api.github.com/repos/Satvik1769/Backend/contents/uploads`,{
                 method : "POST",
