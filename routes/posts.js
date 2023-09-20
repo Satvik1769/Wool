@@ -147,6 +147,7 @@ var upload = multer({storage : storage}).single('image')
             return res.status(500).json({error : 'File upload failed'})
         }
         else{
+          console.log(req.file.filename);
           
             const newImage = new Image({
                 userName : req.body.userName,
