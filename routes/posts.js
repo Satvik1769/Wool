@@ -177,8 +177,19 @@ var upload = multer({storage : storage}).single('image')
                   message : "upload image from api",
                   content : base64Image
                 })
-           }).then(res => res.json())
-           .then(data => console.log(data))
+           }) .then((githubResponse) => {
+            if (githubResponse.ok) {
+              console.log(`Image uploaded to GitHub in the '${directoryPath}' directory.`);
+              // Handle success
+            } else {
+              console.error(`Error uploading image to GitHub: ${githubResponse.statusText}`);
+              // Handle error
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            // Handle error
+          });
           
                 
                 //res.status(200).json({message:'Success'})
