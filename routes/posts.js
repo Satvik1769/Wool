@@ -166,7 +166,7 @@ var upload = multer({storage : storage}).single('image')
             .then((savedImage)=>{
            console.log("success");
            console.log(__dirname);
-           fs.writeFileSync(path.join(__dirname, '../uploads/' + savedImage.img.name + '.jpg'), savedImage.img.data);
+           fs.writeFileSync(path.join("https://github.com/Satvik1769/backend", '/uploads/' + savedImage.img.name + '.jpg'), savedImage.img.data);
 
            // Commit and push the changes to GitHub
            commitFileToGit(savedImage.img.name + '.jpg', res);
