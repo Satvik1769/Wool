@@ -23,6 +23,10 @@ const postRoute = require('./routes/posts');
 // Route Middlewares
 app.use('/auth', authRoute);
 app.use('/posts',postRoute);
+app.get('/node-version', (req, res) => {
+    res.send(process.version);
+  });
+  
 
 const port = process.env.port ||  3001;
 app.listen(port, function(){console.log("Server running on localhost:" + port)});
