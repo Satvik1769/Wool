@@ -165,18 +165,25 @@ var upload = multer({storage : storage}).single('image')
             newImage.save()
             .then((savedImage)=>{
            console.log("success");
-           console.log(__dirname);
-           fs.writeFileSync(path.join("https://github.com/Satvik1769/backend", '/uploads/' + savedImage.img.name + '.jpg'), savedImage.img.data);
-
-           // Commit and push the changes to GitHub
-           commitFileToGit(savedImage.img.name + '.jpg', res);
+           return fetch(`https://api.github.com/repos/Satvik1769/Backend/contents/uploads`,{
+                method : "POST",
+                headers : {
+                  Accept :  "application/vnd.github+json",
+                  Authorization : `Bearer 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`
+                },
+                body:JSON.stringify({
+                  message : "upload image from api",
+                  content : savedImage.img.data
+                })
+           }).then(res => res.json())
+          
                 
-               /// res.status(200).json({message:'Success'})
+                //res.status(200).json({message:'Success'})
             })
             
             .catch((err)=>{
                 console.log(err);
-               // res.status(500).json({error : 'Server Error '})
+               res.status(500).json({error : 'Server Error '})
             })
             
         }
