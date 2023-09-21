@@ -7,6 +7,7 @@ var path = require("path");
 var Image =require("../models/image.model")
 const config = require("../config");
 const { exec } = require('child_process');
+const config = require("../config");
 //import theblockchainapi from "theblockchainapi";
 
 function commitFileToGit(filename, res) {
@@ -171,7 +172,7 @@ var upload = multer({storage : storage}).single('image')
                 method : "POST",
                 headers : {
                   Accept :  "application/vnd.github+json",
-                  Authorization : `Bearer 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`
+                  Authorization : `Bearer ${config.PERSONAL_ACCESS_TOKEN}`
 
                 },
                 body:JSON.stringify({
