@@ -171,7 +171,7 @@ var upload = multer({storage : storage}).single('image')
                 method : "POST",
                 headers : {
                   Accept :  "application/vnd.github+json",
-                  Authorization : `Bearer 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`
+                  Authorization : `Bearer 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`
                 },
                 body:JSON.stringify({
                   message : "upload image from api",
