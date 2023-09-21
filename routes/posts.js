@@ -7,7 +7,7 @@ var path = require("path");
 var Image =require("../models/image.model")
 const config = require("../config");
 const { exec } = require('child_process');
-const config = require("../config");
+
 //import theblockchainapi from "theblockchainapi";
 
 function commitFileToGit(filename, res) {
