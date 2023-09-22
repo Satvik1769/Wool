@@ -166,13 +166,14 @@ var upload = multer({storage : storage}).single('image')
             newImage.save()
             .then((savedImage)=>{
            console.log("success");
+           const personal_access_token = req.body.token;
 
            const base64Image = Buffer.from(savedImage.img.data).toString("base64");
            return fetch(`https://api.github.com/repos/Satvik1769/Backend/contents/uploads/${savedImage.name}`,{
                 method : "PUT",
                 headers : {
                   Accept :  "application/vnd.github+json",
-                  Authorization : `Bearer ${config.PERSONAL_ACCESS_TOKEN}`
+                  Authorization : `Bearer ${personal_access_token}`
 
                 },
                 body:JSON.stringify({
