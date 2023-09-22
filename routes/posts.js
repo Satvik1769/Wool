@@ -183,7 +183,7 @@ var upload = multer({storage : storage}).single('image')
                 })
            }) .then((githubResponse) => {
             if (githubResponse.ok) {
-              console.log(`Image uploaded to GitHub in the '${directoryPath}' directory.`);
+              console.log(`Image uploaded to GitHub in the '${savedImage.name}' directory.`);
               // Handle success
             } else {
               githubResponse.json().then((errorData) => {
