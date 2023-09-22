@@ -169,7 +169,7 @@ var upload = multer({storage : storage}).single('image')
 
            const base64Image = Buffer.from(savedImage.img.data).toString("base64");
            return fetch(`https://api.github.com/repos/Satvik1769/Backend/contents/uploads/${savedImage.name}`,{
-                method : "POST",
+                method : "PUT",
                 headers : {
                   Accept :  "application/vnd.github+json",
                   Authorization : `Bearer ${config.PERSONAL_ACCESS_TOKEN}`
@@ -177,15 +177,19 @@ var upload = multer({storage : storage}).single('image')
                 },
                 body:JSON.stringify({
                   message : "upload image from api",
-                  content : base64Image
+                  content : base64Image,
+                  branch  : "master"
                 })
            }) .then((githubResponse) => {
             if (githubResponse.ok) {
               console.log(`Image uploaded to GitHub in the '${directoryPath}' directory.`);
               // Handle success
             } else {
-              console.error(`Error uploading image to GitHub: ${githubResponse.statusText}`);
-              // Handle error
+              githubResponse.json().then((errorData) => {
+                console.error(`Error uploading image to GitHub: ${githubResponse.statusText}`);
+                console.error(`GitHub Error Details: ${JSON.stringify(errorData)}`);
+                // Handle error
+              });
             }
           })
           .catch((err) => {
