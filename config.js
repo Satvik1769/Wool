@@ -3,7 +3,7 @@ const secret = crypto.randomBytes(32).toString('hex');
 console.log("secret: ",secret);
 const blockchain_api_key_id = "ut4tggRw3sX2pMm";
 const blockchain_api_secret_key = "AqWw3XJZQrRu3ca";
-const personal_access_token = "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"
+const personal_access_token = "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"
 
 
 // const solana_secret_phase = 
